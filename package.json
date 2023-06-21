@@ -30,6 +30,7 @@
     "react-native-crypto": "^2.2.0",
     "react-native-get-random-values": "~1.8.0",
     "react-native-randombytes": "^3.6.1",
+    "react-native-svg": "13.4.0",
     "readable-stream": "^1.0.33",
     "stream-browserify": "^1.0.0",
     "text-encoding-polyfill": "^0.6.7",
