@@ -1,15 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
-
+import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import BIP32Factory from "bip32";
 import { wordlist } from "@scure/bip39/wordlists/english";
+
 import * as ecc from "@bitcoinerlab/secp256k1";
 import * as bip39 from "@scure/bip39";
 import * as bitcoin from "bitcoinjs-lib";
@@ -48,19 +42,9 @@ export default function App() {
   return (
     <View style={$root}>
       <StatusBar style="auto" />
-      <Text style={{ fontSize: 30 }}>Crypto Testing</Text>
+      <Text style={{ fontSize: 30 }}>CRYPTO testing</Text>
 
-      <TouchableOpacity
-        onPress={onClickmePressed}
-        style={{
-          backgroundColor: "#1E1E1E",
-          borderRadius: 20,
-          width: "50%",
-          height: 30,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <TouchableOpacity onPress={onClickmePressed} style={$button}>
         <Text style={{ color: "white" }}>Click me</Text>
       </TouchableOpacity>
 
@@ -77,11 +61,11 @@ const $root: ViewStyle = {
   marginTop: 60,
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    marginTop: 100,
-    padding: 12,
-  },
-});
+const $button: ViewStyle = {
+  backgroundColor: "#1E1E1E",
+  borderRadius: 20,
+  width: "50%",
+  height: 30,
+  justifyContent: "center",
+  alignItems: "center",
+};

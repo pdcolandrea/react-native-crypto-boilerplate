@@ -7,7 +7,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "n-ios": "react-native run-ios",
-    "n-start": "node node_modules/react-native/local-cli/cli.js start"
+    "n-start": "node node_modules/react-native/local-cli/cli.js start",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.0.2",
