@@ -67,17 +67,15 @@ export default function App() {
     end = performance.now();
     console.log(`[Path Derivation] ${end - start}ms\n\n=====\n\n`);
 
-    setWallet((prev) => {
-      return {
-        addresses: [
-          bitcoin.payments.p2wpkh({
-            pubkey: child1.publicKey,
-          }).address,
-        ],
-        key: mnemonic,
-        adrIndex: prev.adrIndex + 1,
-        root,
-      };
+    setWallet({
+      addresses: [
+        bitcoin.payments.p2wpkh({
+          pubkey: child1.publicKey,
+        }).address,
+      ],
+      key: mnemonic,
+      adrIndex: 0,
+      root,
     });
   };
 
