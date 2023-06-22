@@ -10,7 +10,6 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { Icon } from "react-native-elements";
 import BIP32Factory, { BIP32Interface } from "bip32";
 import { wordlist } from "@scure/bip39/wordlists/english";
 
@@ -122,127 +121,129 @@ export default function App() {
         </Text>
       </View>
 
-      <View
-        style={{
-          height: "22%",
-          backgroundColor: "#323536",
+      <FlatList
+        data={[1, 2, 3]}
+        contentContainerStyle={{
+          flex: 1,
+          alignContent: "stretch",
           marginTop: 24,
-          marginBottom: 12,
-          borderRadius: 24,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
-          shadowOpacity: 0.29,
-          shadowRadius: 4.65,
-
-          elevation: 7,
+          marginBottom: 120,
         }}
-      >
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            paddingHorizontal: 12,
-            flexDirection: "row",
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: "white", fontSize: 18 }}>Mnemonic</Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              {wallet.key.split(" ").map((word) => {
+        snapToAlignment="start"
+        horizontal
+        pagingEnabled
+        snapToInterval={100}
+        renderItem={({}) => (
+          <View
+            style={{
+              backgroundColor: "#131313",
+              width: "100%",
+              borderRadius: 24,
+              padding: 12,
+            }}
+          >
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              {wallet.key.split(" ").map((word, index) => {
                 if (word === "") return;
 
                 return (
-                  <View key={word} style={{ marginHorizontal: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "white",
-                        fontWeight: "800",
-                      }}
-                    >
-                      {word}
-                    </Text>
+                  <View
+                    style={{
+                      height: 30,
+                      paddingHorizontal: 12,
+                      backgroundColor: "black",
+                      justifyContent: "center",
+                      borderRadius: 12,
+                      margin: 2,
+                    }}
+                    key={index}
+                  >
+                    <Text style={{ color: "white", fontSize: 12 }}>{word}</Text>
                   </View>
                 );
               })}
             </View>
-          </View>
 
-          <Image
-            source={require("./assets/bf-logo.png")}
-            style={{ width: 60, height: 60, marginLeft: 12 }}
-          />
-        </View>
-
-        <View
-          style={{
-            height: "40%",
-            backgroundColor: "#2b2e2f",
-            borderBottomLeftRadius: 24,
-            borderBottomRightRadius: 24,
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
-          <Icon name="check" type="feather" color="white" />
-          <Icon name="globe" type="feather" color="white" />
-          <Icon name="refresh-ccw" type="feather" color="white" />
-          <Icon name="more-horizontal" type="feather" color="white" />
-        </View>
-      </View>
-
-      <FlatList
-        data={[1, 2, 3]}
-        numColumns={2}
-        scrollEnabled={false}
-        ItemSeparatorComponent={() => <View style={{ width: 6, height: 12 }} />}
-        renderItem={({ item, index }) => {
-          return (
-            <View
-              style={{
-                flex: 1 / 2,
-                height: 170,
-                marginHorizontal: 6,
-                backgroundColor: "#2b2e2f",
-                borderRadius: 24,
-                padding: 12,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={[$bodyText, { fontWeight: "700" }]}>
-                  Receive Adr
-                </Text>
-
-                <TouchableOpacity
-                  style={{ flexDirection: "row", alignItems: "center" }}
-                >
-                  <Icon name="plus" type="feather" color="#828284" size={10} />
-                  <Text style={{ color: "#828284" }}>New</Text>
-                </TouchableOpacity>
-              </View>
-              <Text
-                style={{
-                  fontSize: 100,
-                  fontWeight: "700",
-                  alignSelf: "center",
-                  color: "#828284",
-                }}
-              >
-                7
+            <View style={{ marginTop: 12 }}>
+              <Text style={{ fontSize: 17, color: "white", fontWeight: "700" }}>
+                Addresses
               </Text>
+
+              {wallet.addresses.map((adr, index) => {
+                return (
+                  <View key={adr} style={[$row, { marginVertical: 6 }]}>
+                    <View
+                      style={{
+                        borderRadius: 320,
+                        borderColor: "red",
+                        borderWidth: 1,
+                        marginRight: 5,
+                        height: 20,
+                        width: 20,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={{ color: "white" }}>{index}</Text>
+                    </View>
+
+                    <Text style={[$bodyText]}>{adr}</Text>
+                  </View>
+                );
+              })}
+
+              {wallet.addresses.length !== 0 && (
+                <>
+                  <TouchableOpacity
+                    onPress={onGenerateAddressPressed}
+                    style={{
+                      borderColor: "rgba(255, 255, 255, 0.5)",
+                      borderWidth: 1,
+                      alignSelf: "center",
+                      paddingLeft: 12,
+                      paddingRight: 12,
+                      paddingVertical: 5,
+                      borderRadius: 12,
+                      flexDirection: "row",
+                    }}
+                  >
+                    <Text style={[$bodyText, { fontSize: 12 }]}>
+                      Generate Receiving Address
+                    </Text>
+                    <Image
+                      source={require("./assets/plus.png")}
+                      style={{
+                        width: 15,
+                        height: 15,
+                        marginLeft: 5,
+                      }}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={{ alignSelf: "center", marginTop: 5 }}
+                  >
+                    <Text
+                      style={[
+                        $bodyText,
+                        { fontSize: 12, textDecorationLine: "underline" },
+                      ]}
+                    >
+                      Generate Change Address
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
-          );
-        }}
+          </View>
+        )}
       />
 
       <TouchableOpacity onPress={onClickmePressed} style={$button}>
@@ -256,7 +257,7 @@ export default function App() {
 
 const $root: ViewStyle = {
   flex: 1,
-  backgroundColor: "#181818",
+  backgroundColor: "black",
   padding: 12,
   paddingTop: 60,
 };
