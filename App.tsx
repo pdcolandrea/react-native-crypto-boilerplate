@@ -38,7 +38,7 @@ export default function App() {
     adrIndex: 0,
   });
 
-  const onClickmePressed = () => {
+  const onGenerateWalletPressed = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
     let start = performance.now();
@@ -149,25 +149,14 @@ export default function App() {
           }}
         >
           <View style={{ flex: 1 }}>
-            <Text style={{ color: "white", fontSize: 18 }}>Mnemonic</Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              {wallet.key.split(" ").map((word) => {
-                if (word === "") return;
-
-                return (
-                  <View key={word} style={{ marginHorizontal: 2 }}>
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: "white",
-                        fontWeight: "800",
-                      }}
-                    >
-                      {word}
-                    </Text>
-                  </View>
-                );
-              })}
+            <Text style={{ color: "white", fontSize: 18 }}>Balance</Text>
+            <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+              <Text style={{ fontSize: 40, fontWeight: "700", color: "white" }}>
+                0
+              </Text>
+              <Text style={{ fontSize: 30, marginBottom: 3, color: "white" }}>
+                sat
+              </Text>
             </View>
           </View>
 
@@ -190,66 +179,144 @@ export default function App() {
         >
           <Icon name="check" type="feather" color="white" />
           <Icon name="globe" type="feather" color="white" />
-          <Icon name="refresh-ccw" type="feather" color="white" />
+          <Icon
+            name="refresh-ccw"
+            type="feather"
+            color="white"
+            onPress={onGenerateWalletPressed}
+          />
           <Icon name="more-horizontal" type="feather" color="white" />
         </View>
       </View>
 
       <FlatList
-        data={[1, 2, 3]}
+        data={[1, 2, 3, 4]}
         numColumns={2}
         scrollEnabled={false}
-        ItemSeparatorComponent={() => <View style={{ width: 6, height: 12 }} />}
+        ItemSeparatorComponent={() => <View style={{ width: 6, height: 6 }} />}
         renderItem={({ item, index }) => {
           return (
             <View
               style={{
                 flex: 1 / 2,
                 height: 170,
-                marginHorizontal: 6,
+                marginRight: index % 2 === 0 ? 6 : 0,
                 backgroundColor: "#2b2e2f",
                 borderRadius: 24,
                 padding: 12,
               }}
             >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={[$bodyText, { fontWeight: "700" }]}>
-                  Receive Adr
-                </Text>
-
-                <TouchableOpacity
-                  style={{ flexDirection: "row", alignItems: "center" }}
+              {index === 0 && (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <Icon name="plus" type="feather" color="#828284" size={10} />
-                  <Text style={{ color: "#828284" }}>New</Text>
-                </TouchableOpacity>
-              </View>
-              <Text
-                style={{
-                  fontSize: 100,
-                  fontWeight: "700",
-                  alignSelf: "center",
-                  color: "#828284",
-                }}
-              >
-                7
-              </Text>
+                  <Text style={[$bodyText, { fontWeight: "700" }]}>
+                    Receive
+                  </Text>
+                </View>
+              )}
+
+              {index === 1 && (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={[$bodyText, { fontWeight: "700" }]}>
+                    Addresses
+                  </Text>
+
+                  <TouchableOpacity
+                    style={{ flexDirection: "row", alignItems: "center" }}
+                  >
+                    <Icon
+                      name="plus"
+                      type="feather"
+                      color="#828284"
+                      size={10}
+                    />
+                    <Text style={{ color: "#828284" }}>New</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              {index === 2 && (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={[$bodyText, { fontWeight: "700" }]}>
+                    Transactions
+                  </Text>
+                </View>
+              )}
+
+              {index === 3 && (
+                <View style={{ flexDirection: "column", flex: 1 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={[$bodyText, { fontWeight: "700" }]}>
+                      Private Key
+                    </Text>
+
+                    <TouchableOpacity
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Icon
+                        name="copy"
+                        type="feather"
+                        color="#828284"
+                        size={10}
+                      />
+                      <Text style={{ color: "#828284", marginLeft: 3 }}>
+                        Copy
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flex: 1,
+                    }}
+                  >
+                    <Text style={{ color: "white" }}>{wallet.key}</Text>
+                  </View>
+                </View>
+              )}
             </View>
           );
         }}
       />
 
-      <TouchableOpacity onPress={onClickmePressed} style={$button}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "600" }}>
-          Generate Wallet
-        </Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        <TouchableOpacity style={$button}>
+          <Text style={{ color: "white", fontSize: 17, fontWeight: "600" }}>
+            Send
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={$button}>
+          <Text style={{ color: "white", fontSize: 17, fontWeight: "600" }}>
+            Receive
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -264,10 +331,9 @@ const $root: ViewStyle = {
 const $button: ViewStyle = {
   backgroundColor: "#1E1E1E",
   borderRadius: 20,
-  width: "90%",
+  width: "42%",
   height: 50,
   alignSelf: "center",
-  position: "absolute",
   bottom: 50,
   justifyContent: "center",
   alignItems: "center",
