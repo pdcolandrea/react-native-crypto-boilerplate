@@ -168,7 +168,7 @@ export default function App() {
 
         <View
           style={{
-            height: "40%",
+            height: "35%",
             backgroundColor: "#2b2e2f",
             borderBottomLeftRadius: 24,
             borderBottomRightRadius: 24,
