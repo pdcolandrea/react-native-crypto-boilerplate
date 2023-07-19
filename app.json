@@ -4,6 +4,7 @@
     "slug": "CryptoWallet",
     "version": "1.0.0",
     "orientation": "portrait",
+    "entryPoint": "./app/App.tsx",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

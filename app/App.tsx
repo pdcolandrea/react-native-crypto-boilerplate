@@ -108,17 +108,7 @@ export default function App() {
         <Text style={{ fontSize: 40, color: "white", fontWeight: "800" }}>
           C R Y P T O
         </Text>
-        <Text
-          style={{
-            color: "#ef6d4e",
-            fontSize: 15,
-            marginTop: -5,
-            alignSelf: "flex-end",
-            fontWeight: "700",
-          }}
-        >
-          expo boilerplate
-        </Text>
+        <Text style={$subheader}>expo boilerplate</Text>
       </View>
 
       <View
@@ -284,27 +274,6 @@ const $root: ViewStyle = {
   paddingTop: 60,
 };
 
-const $button: ViewStyle = {
-  backgroundColor: "#1E1E1E",
-  borderRadius: 20,
-  width: "42%",
-  height: 50,
-  alignSelf: "center",
-  bottom: 50,
-  justifyContent: "center",
-  alignItems: "center",
-
-  shadowColor: "red",
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.5,
-  shadowRadius: 12.35,
-
-  elevation: 19,
-};
-
 const $bodyText: TextStyle = {
   color: "white",
   fontSize: 18,
@@ -312,4 +281,12 @@ const $bodyText: TextStyle = {
 
 const $row: ViewStyle = {
   flexDirection: "row",
+};
+
+const $subheader: TextStyle = {
+  color: "#ef6d4e",
+  fontSize: 15,
+  marginTop: -5,
+  alignSelf: "flex-end",
+  fontWeight: "700",
 };
