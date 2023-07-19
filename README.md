@@ -6,7 +6,7 @@
 
 </div>
 
-## 🛠 Expo Crypto Boilerplate
+## 🛠 Expo Crypto Boilerplate (⚠️WIP⚠️)
 
 Ready to go with Bitcoinjs-lib
 
