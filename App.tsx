@@ -1,8 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
-  FlatList,
-  Image,
   LayoutAnimation,
   Text,
   TextStyle,
@@ -29,7 +27,6 @@ interface WalletState {
 
 const BTC_DERIVATION_PATH = "m/84'/0'/0'/0";
 
-// TODO: FLATLIST SWIPE NOT WORKING
 export default function App() {
   const [wallet, setWallet] = useState<WalletState>({
     addresses: [],
@@ -80,6 +77,7 @@ export default function App() {
     });
   };
 
+  // TODO: KEEP TRACK OF ADDRESSES
   const onGenerateAddressPressed = () => {
     if (wallet.adrIndex >= 7) return;
 
@@ -112,13 +110,14 @@ export default function App() {
         </Text>
         <Text
           style={{
-            color: "white",
+            color: "#ef6d4e",
             fontSize: 15,
             marginTop: -5,
             alignSelf: "flex-end",
+            fontWeight: "700",
           }}
         >
-          bytefederal testing
+          expo boilerplate
         </Text>
       </View>
 
@@ -159,11 +158,6 @@ export default function App() {
               </Text>
             </View>
           </View>
-
-          <Image
-            source={require("./assets/bf-logo.png")}
-            style={{ width: 60, height: 60, marginLeft: 12 }}
-          />
         </View>
 
         <View
@@ -189,137 +183,99 @@ export default function App() {
         </View>
       </View>
 
-      <FlatList
-        data={[1, 2, 3, 4]}
-        numColumns={2}
-        scrollEnabled={false}
-        ItemSeparatorComponent={() => <View style={{ width: 6, height: 6 }} />}
-        renderItem={({ item, index }) => {
-          return (
-            <View
-              style={{
-                flex: 1 / 2,
-                height: 170,
-                marginRight: index % 2 === 0 ? 6 : 0,
-                backgroundColor: "#2b2e2f",
-                borderRadius: 24,
-                padding: 12,
-              }}
-            >
-              {index === 0 && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text style={[$bodyText, { fontWeight: "700" }]}>
-                    Receive
-                  </Text>
-                </View>
-              )}
-
-              {index === 1 && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text style={[$bodyText, { fontWeight: "700" }]}>
-                    Addresses
-                  </Text>
-
-                  <TouchableOpacity
-                    style={{ flexDirection: "row", alignItems: "center" }}
-                  >
-                    <Icon
-                      name="plus"
-                      type="feather"
-                      color="#828284"
-                      size={10}
-                    />
-                    <Text style={{ color: "#828284" }}>New</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-
-              {index === 2 && (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text style={[$bodyText, { fontWeight: "700" }]}>
-                    Transactions
-                  </Text>
-                </View>
-              )}
-
-              {index === 3 && (
-                <View style={{ flexDirection: "column", flex: 1 }}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text style={[$bodyText, { fontWeight: "700" }]}>
-                      Private Key
-                    </Text>
-
-                    <TouchableOpacity
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Icon
-                        name="copy"
-                        type="feather"
-                        color="#828284"
-                        size={10}
-                      />
-                      <Text style={{ color: "#828284", marginLeft: 3 }}>
-                        Copy
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View
-                    style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flex: 1,
-                    }}
-                  >
-                    <Text style={{ color: "white" }}>{wallet.key}</Text>
-                  </View>
-                </View>
-              )}
-            </View>
-          );
+      <View
+        style={{
+          backgroundColor: "#323536",
+          padding: 12,
+          borderRadius: 24,
+          height: 150,
         }}
-      />
+      >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={[$bodyText, { fontWeight: "700" }]}>Private Key</Text>
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <Icon name="copy" type="feather" color="#828284" size={10} />
+            <Text style={{ color: "#828284", marginLeft: 3 }}>Copy</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-        <TouchableOpacity style={$button}>
-          <Text style={{ color: "white", fontSize: 17, fontWeight: "600" }}>
-            Send
-          </Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            flexGrow: 1,
+            alignContent: "flex-end",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginLeft: -4,
+          }}
+        >
+          {wallet.key.split(" ").map((word, index) => {
+            return (
+              <View
+                key={`${word}-${index}`}
+                style={{
+                  marginHorizontal: 3,
+                  marginVertical: 3,
+                  borderColor: "#ef6d4e",
+                  borderWidth: 1.5,
+                  borderRadius: 6,
+                  paddingHorizontal: 10,
+                  paddingVertical: 3,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontSize: 14 }}>{word}</Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
 
-        <TouchableOpacity style={$button}>
-          <Text style={{ color: "white", fontSize: 17, fontWeight: "600" }}>
-            Receive
-          </Text>
-        </TouchableOpacity>
+      <View
+        style={{
+          backgroundColor: "#323536",
+          marginTop: 12,
+          padding: 12,
+          borderRadius: 24,
+          height: 80,
+        }}
+      >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={[$bodyText, { fontWeight: "700" }]}>Address</Text>
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <Icon name="copy" type="feather" color="#828284" size={10} />
+            <Text style={{ color: "#828284", marginLeft: 3 }}>Copy</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginTop: 5,
+          }}
+        >
+          <AddressText address={wallet.addresses[0]} />
+        </View>
       </View>
     </View>
   );
 }
+
+const AddressText = ({ address }: { address: string }) => {
+  let text = "";
+  if (address && address.startsWith("bc1")) {
+    text = address.slice(3);
+  }
+  return (
+    <Text style={{ color: "white", fontSize: 13, fontWeight: "600" }}>
+      <Text style={{ fontWeight: "800", color: "#ef6d4e" }}>bc1</Text>
+      {text}
+    </Text>
+  );
+};
 
 const $root: ViewStyle = {
   flex: 1,
@@ -351,7 +307,7 @@ const $button: ViewStyle = {
 
 const $bodyText: TextStyle = {
   color: "white",
-  fontSize: 13,
+  fontSize: 18,
 };
 
 const $row: ViewStyle = {
